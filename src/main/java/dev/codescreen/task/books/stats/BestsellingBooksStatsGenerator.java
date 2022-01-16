@@ -24,10 +24,10 @@ public class BestsellingBooksStatsGenerator {
 		Set<Books> allbooks = booksCsvParser.getAllBooks();
 		
 		 //filter 1
-        Predicate<Books> isYear = e -> e.getYear() == year;
- 
-        //filter2
-        Predicate<Books> isGenre = e -> e.getGenre() == genre;
+		Predicate<Books> isYear = e -> e.getYear() == year;
+
+		//filter2
+		Predicate<Books> isGenre = e -> e.getGenre().equals(genre);
          
         
 		Books book = allbooks.stream().filter(isYear.and(isGenre))
@@ -35,7 +35,6 @@ public class BestsellingBooksStatsGenerator {
 				.get();
 		return book.getName();
 	}catch(Exception e){
-			System.out.println(e);
 		  throw new UnsupportedOperationException();
 	}
   }
@@ -50,20 +49,19 @@ public class BestsellingBooksStatsGenerator {
   public int getAverageReviews(String genre, int year) {
 	  try{
 			
-			Set<Books> allbooks = booksCsvParser.getAllBooks();
+		Set<Books> allbooks = booksCsvParser.getAllBooks();
 			
-			 //filter 1
+		//filter 1
 	        Predicate<Books> isYear = e -> e.getYear() == year;
 	 
 	        //filter2
-	        Predicate<Books> isGenre = e -> e.getGenre() == genre;
+	        Predicate<Books> isGenre = e -> e.getGenre().equals(genre);
 	        
-			int avg = (int) allbooks.stream().filter(isYear.and(isGenre))
+		int avg = (int) allbooks.stream().filter(isYear.and(isGenre))
 					.mapToInt(Books::getReview).average().orElse(0);
-			return avg;
+		return avg;
 		}catch(Exception e){
-				System.out.println(e);
-			  throw new UnsupportedOperationException();
+			throw new UnsupportedOperationException();
 		}
   }
 
